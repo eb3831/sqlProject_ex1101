@@ -1,6 +1,7 @@
 package com.example.ex18;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +16,8 @@ import androidx.core.view.WindowInsetsCompat;
 public class MainActivity extends AppCompatActivity
 {
     Intent gi;
+    SQLiteDatabase db;
+    HelperDB hlp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -22,6 +25,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initAll();
     }
 
     /**
@@ -53,5 +57,12 @@ public class MainActivity extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(menuItem);
+    }
+
+    private void initAll()
+    {
+        hlp = new HelperDB(this);
+        db = hlp.getWritableDatabase();
+        db.close();
     }
 }
