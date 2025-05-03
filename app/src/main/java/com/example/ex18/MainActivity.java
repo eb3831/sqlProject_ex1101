@@ -24,6 +24,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener
 {
@@ -37,10 +38,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     EditText employeeCardNumberEt, employeeLastNameEt, employeeFirstNameEt, employeeCompanyEt,
             employeeIdentityEt, employeePhoneNumberEt, foodSupplierSecPhoneEt,
             foodSupplierTaxNumberEt, foodSupplierCompanyEt, foodSupplierMainPhoneEt, mealStarterEt,
-            mealMainEt, mealSideEt, mealDessertEt, mealDrinkEt, orderTimeEt, orderDateEt;
+            mealMainEt, mealSideEt, mealDessertEt, mealDrinkEt;
     ArrayList<String> employeeList, mealsList, foodSuppliersList;
     ArrayList<Integer> mealsIdsList;
-
+    int mainSpinnerChosenOption;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -88,6 +89,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     private void initAll()
     {
+        mainSpinnerChosenOption = 0;
+
         hlp = new HelperDB(this);
         db = hlp.getWritableDatabase();
         db.close();
@@ -106,28 +109,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
     {
-
-        if (position != 0)
-        {
-            switch (position)
-            {
-                case 1:
-                    showEmployeeDialog();
-                    break;
-
-                case 2:
-                    showFoodSupplierDialog();
-                    break;
-
-                case 3:
-                    showMealDialog();
-                    break;
-
-                case 4:
-                    showOrderDialog();
-                    break;
-            }
-        }
+        mainSpinnerChosenOption = position;
     }
 
     @Override
@@ -389,8 +371,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     {
         dialogView = (LinearLayout) getLayoutInflater().inflate(R.layout.input_order_dialog, null);
 
-        orderDateEt = dialogView.findViewById(R.id.orderDateEt);
-        orderTimeEt = dialogView.findViewById(R.id.orderTimeEt);
         orderEmployeeSpinner = dialogView.findViewById(R.id.orderEmployeeSpinner);
         orderMealSpinner = dialogView.findViewById(R.id.orderMealSpinner);
         orderFoodSupplierSpinner = dialogView.findViewById(R.id.orderFoodSupplierSpinner);
@@ -439,17 +419,25 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     private boolean isOrderDataValid()
     {
-        return !orderDateEt.getText().toString().isEmpty() &&
-                !orderTimeEt.getText().toString().isEmpty() &&
-                orderEmployeeSpinner.getSelectedItemPosition() != 0 &&
+        return orderEmployeeSpinner.getSelectedItemPosition() != 0 &&
                 orderMealSpinner.getSelectedItemPosition() != 0 &&
                 orderFoodSupplierSpinner.getSelectedItemPosition() != 0;
     }
 
     private void saveOrderDataToDB()
     {
-        String date = orderDateEt.getText().toString();
-        String time = orderTimeEt.getText().toString();
+        Calendar calendar = Calendar.getInstance();
+
+        // Get components
+        int hour = calendar.get(Calendar.HOUR_OF_DAY); // 0-23
+        int minute = calendar.get(Calendar.MINUTE);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int month = calendar.get(Calendar.MONTH) + 1; // Months are 0-based
+        int year = calendar.get(Calendar.YEAR);
+
+        // Format with leading zeros
+        String date = String.format("%02d-%02d-%04d", day, month, year);
+        String time = String.format("%02d:%02d", hour, minute);
 
         int selectedEmployeeCardNumber = Integer.parseInt(employeeList.get(
                 orderEmployeeSpinner.getSelectedItemPosition()));
@@ -467,5 +455,27 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         db = hlp.getWritableDatabase();
         db.insert(Orders.TABLE_ORDERS, null, cv);
         db.close();
+    }
+
+    public void addData(View view)
+    {
+        switch (mainSpinnerChosenOption)
+        {
+            case 1:
+                showEmployeeDialog();
+                break;
+
+            case 2:
+                showFoodSupplierDialog();
+                break;
+
+            case 3:
+                showMealDialog();
+                break;
+
+            case 4:
+                showOrderDialog();
+                break;
+        }
     }
 }
