@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/orderDialogLayout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/orderDateEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Order Date (YYYY-MM-DD)"
+        android:inputType="date" />
+
+    <EditText
+        android:id="@+id/orderTimeEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:hint="Order Time (HH:MM)"
+        android:inputType="time"
+        android:onClick="openTimePickerDialog" />
+
+    <Spinner
+        android:id="@+id/orderEmployeeSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+
+    <Spinner
+        android:id="@+id/orderMealSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+
+    <Spinner
+        android:id="@+id/orderFoodSupplierSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+</LinearLayout>

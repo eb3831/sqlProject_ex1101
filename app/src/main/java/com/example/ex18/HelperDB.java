@@ -20,8 +20,8 @@ public class HelperDB extends SQLiteOpenHelper
     public void onCreate(SQLiteDatabase db) {
         // Creates the employees table
         strCreate = "CREATE TABLE " + Employees.TABLE_EMPLOYEES;
-        strCreate += " (" + Employees.EMPLOYEE_KEY_ID + " TEXT PRIMARY KEY,";
-        strCreate += " " + Employees.CARD_NUMBER + " INTEGER,";
+        strCreate += " (" + Employees.EMPLOYEE_KEY_ID + " TEXT,";
+        strCreate += " " + Employees.CARD_NUMBER + " INTEGER PRIMARY KEY,";
         strCreate += " " + Employees.LAST_NAME + " TEXT,";
         strCreate += " " + Employees.FIRST_NAME + " TEXT,";
         strCreate += " " + Employees.COMPANY + " TEXT,";
@@ -53,7 +53,7 @@ public class HelperDB extends SQLiteOpenHelper
         strCreate = "CREATE TABLE " + Orders.TABLE_ORDERS;
         strCreate += " (" + Orders.ORDER_DATE + " TEXT,";
         strCreate += " " + Orders.ORDER_TIME + " TEXT,";
-        strCreate += " " + Orders.EMPLOYEE_ID + " INTEGER,";
+        strCreate += " " + Orders.EMPLOYEE_CARD_NUMBER + " INTEGER,";
         strCreate += " " + Orders.MEAL_ID + " INTEGER,";
         strCreate += " " + Orders.SUPPLIER_ID + " INTEGER";
         strCreate += ");";

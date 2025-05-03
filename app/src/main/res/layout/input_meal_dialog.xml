@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/mealStarterEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Starter Dish"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/mealMainEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Main Course"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/mealSideEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Side Dish"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/mealDessertEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Dessert"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/mealDrinkEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Drink"
+        android:inputType="textPersonName" />
+</LinearLayout>
