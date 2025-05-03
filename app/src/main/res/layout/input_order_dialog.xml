@@ -17,10 +17,8 @@
         android:id="@+id/orderTimeEt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:enabled="false"
         android:hint="Order Time (HH:MM)"
-        android:inputType="time"
-        android:onClick="openTimePickerDialog" />
+        android:inputType="time" />
 
     <Spinner
         android:id="@+id/orderEmployeeSpinner"

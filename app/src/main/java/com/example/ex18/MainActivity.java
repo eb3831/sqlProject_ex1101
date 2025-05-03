@@ -92,8 +92,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         db = hlp.getWritableDatabase();
         db.close();
 
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, optionsArray);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, optionsArray);
         spinner.setAdapter(spinnerAdapter);
 
         spinner.setOnItemSelectedListener(this);
@@ -110,8 +109,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         if (position != 0)
         {
-            String[] names = null;
-
             switch (position)
             {
                 case 1:
@@ -411,9 +408,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         loadMeals(mealsList, mealsIdsList);
         loadFoodSuppliers(foodSuppliersList);
 
-        ArrayAdapter<String> employeeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, employeeList);
-        ArrayAdapter<String> mealsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, mealsList);
-        ArrayAdapter<String> suppliersAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, foodSuppliersList);
+        ArrayAdapter<String> employeeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, employeeList);
+        ArrayAdapter<String> mealsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, mealsList);
+        ArrayAdapter<String> suppliersAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, foodSuppliersList);
 
         orderEmployeeSpinner.setAdapter(employeeAdapter);
         orderMealSpinner.setAdapter(mealsAdapter);
@@ -456,7 +453,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         int selectedEmployeeCardNumber = Integer.parseInt(employeeList.get(
                 orderEmployeeSpinner.getSelectedItemPosition()));
-        int selectedMealId = mealsIdsList.get(orderMealSpinner.getSelectedItemPosition());
+        int selectedMealId = mealsIdsList.get(orderMealSpinner.getSelectedItemPosition() - 1);
         int selectedSupplierId = Integer.parseInt(foodSuppliersList.get(
                 orderFoodSupplierSpinner.getSelectedItemPosition()));
 

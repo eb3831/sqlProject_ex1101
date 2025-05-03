@@ -18,13 +18,13 @@
         android:gravity="center"
         android:text="GAV - YAM APP"
         android:textColor="#F06292"
-        android:textSize="34sp"
+        android:textSize="48sp"
         android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5"
+        android:layout_weight="7"
         android:orientation="horizontal">
 
         <Space
@@ -37,7 +37,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="5"
-            android:gravity="start|center_vertical" />
+            android:gravity="start|center_vertical"
+            android:scrollbarSize="6dp" />
 
         <Space
             android:layout_width="0dp"
@@ -48,5 +49,5 @@
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3" />
+        android:layout_weight="1" />
 </LinearLayout>
