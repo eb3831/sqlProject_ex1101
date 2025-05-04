@@ -16,6 +16,14 @@ public class SortDataActivity extends AppCompatActivity
 {
     Intent gi;
 
+    /**
+     * Called when the activity is first created.
+     * Initializes the activity, sets the content view, and initializes UI elements.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in onSaveInstanceState(Bundle). Otherwise it is null.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
