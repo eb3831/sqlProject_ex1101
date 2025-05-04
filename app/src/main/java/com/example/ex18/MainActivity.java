@@ -461,6 +461,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     {
         switch (mainSpinnerChosenOption)
         {
+            case 0:
+                Toast.makeText(this, "Please choose an option!", Toast.LENGTH_SHORT).show();
+                break;
             case 1:
                 showEmployeeDialog();
                 break;
