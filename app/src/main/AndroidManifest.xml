@@ -13,6 +13,12 @@
         android:theme="@style/Theme.AppCompat.DayNight"
         tools:targetApi="31">
         <activity
+            android:name=".SortDataActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DataActivity"
+            android:exported="false" />
+        <activity
             android:name=".CreditsActivity"
             android:exported="false" />
         <activity

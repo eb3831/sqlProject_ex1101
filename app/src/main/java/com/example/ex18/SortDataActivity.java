@@ -12,13 +12,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class CreditsActivity extends AppCompatActivity {
+public class SortDataActivity extends AppCompatActivity
+{
     Intent gi;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_credits);
+        setContentView(R.layout.activity_sort_data);
     }
 
     /**
@@ -49,18 +51,20 @@ public class CreditsActivity extends AppCompatActivity {
             startActivity(gi);
         }
 
+        if (itemId == R.id.menuCredits)
+        {
+            gi = new Intent(this, CreditsActivity.class);
+            startActivity(gi);
+        }
+
         else if ( itemId == R.id.menuShowDate )
         {
             gi = new Intent(this, DataActivity.class);
             startActivity(gi);
         }
 
-        else if ( itemId == R.id.menuShowSortDate )
-        {
-            gi = new Intent(this, SortDataActivity.class);
-            startActivity(gi);
-        }
-
         return super.onOptionsItemSelected(menuItem);
     }
+
+
 }

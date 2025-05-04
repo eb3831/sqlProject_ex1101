@@ -84,6 +84,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             startActivity(gi);
         }
 
+        else if ( itemId == R.id.menuShowDate )
+        {
+            gi = new Intent(this, DataActivity.class);
+            startActivity(gi);
+        }
+
+        else if ( itemId == R.id.menuShowSortDate )
+        {
+            gi = new Intent(this, SortDataActivity.class);
+            startActivity(gi);
+        }
+
         return super.onOptionsItemSelected(menuItem);
     }
 
