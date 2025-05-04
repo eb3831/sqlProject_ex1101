@@ -26,6 +26,18 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+/**
+ * MainActivity class.
+ * This is the main activity of the application, serving as the entry point for the user.
+ * It provides functionality to add new employees, food suppliers, meals, and orders to the database.
+ * The activity also includes an options menu for navigating to other activities such as Credits, Data, and SortData.
+ * It uses a spinner to select the type of data to add and displays dialogs for data input.
+ *
+ * @author eliya bitton eb3831@bs.amalnet.k12.il
+ * @version 2.0
+ * @since 29/4/2025
+ *
+ */
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener
 {
     Intent gi;
@@ -43,6 +55,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     ArrayList<Integer> mealsIdsList;
     int mainSpinnerChosenOption;
 
+    /**
+     * Called when the activity is first created.
+     * Initializes the activity, sets the content view, and initializes UI elements.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in onSaveInstanceState(Bundle). Otherwise it is null.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -53,8 +73,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         initAll();
 
     }
-
-
 
     /**
      * Creates the options menu.
@@ -99,6 +117,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         return super.onOptionsItemSelected(menuItem);
     }
 
+    /**
+     * Initializes all necessary components for the activity.
+     * This includes setting up the database, initializing ArrayLists, and setting up the spinner.
+     */
     private void initAll()
     {
         mainSpinnerChosenOption = 0;
@@ -118,18 +140,35 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         foodSuppliersList = new ArrayList<>();
     }
 
+    /**
+     * Called when an item in the spinner is selected.
+     *
+     * @param parent   The AdapterView where the selection happened.
+     * @param view     The view within the AdapterView that was clicked.
+     * @param position The position of the view in the adapter.
+     * @param id       The row id of the item that is selected.
+     */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
     {
         mainSpinnerChosenOption = position;
     }
 
+    /**
+     * Called when nothing is selected in the spinner.
+     *
+     * @param parent The AdapterView that now contains no selected item.
+     */
     @Override
     public void onNothingSelected(AdapterView<?> parent)
     {
-
+        // do nothing //
     }
 
+    /**
+     * Displays a dialog for adding a new employee.
+     * The dialog includes input fields for employee details and buttons to save or cancel.
+     */
     private void showEmployeeDialog()
     {
         dialogView = (LinearLayout) getLayoutInflater().inflate(R.layout.input_employee_dialog, null);
@@ -162,6 +201,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         adb.show();
     }
 
+    /**
+     * Validates the employee data entered in the dialog.
+     *
+     * @return true if all employee data fields are filled, false otherwise.
+     */
     private boolean isEmployeeDataValid()
     {
         return !employeeCardNumberEt.getText().toString().isEmpty() &&
@@ -172,6 +216,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 !employeePhoneNumberEt.getText().toString().isEmpty();
     }
 
+    /**
+     * Saves the employee data to the database.
+     * Retrieves the data from the input fields, creates a ContentValues object, and inserts the data into the Employees table.
+     */
     private void saveEmployeeDataToDB()
     {
         int cardNumber = Integer.parseInt(employeeCardNumberEt.getText().toString());
@@ -195,6 +243,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         db.close();
     }
 
+    /**
+     * Displays a dialog for adding a new food supplier.
+     * The dialog includes input fields for food supplier details and buttons to save or cancel.
+     */
     private void showFoodSupplierDialog()
     {
         dialogView = (LinearLayout) getLayoutInflater().inflate(R.layout.input_food_supplier_dialog, null);
@@ -226,6 +278,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         adb.show();
     }
 
+    /**
+     * Validates the food supplier data entered in the dialog.
+     *
+     * @return true if all food supplier data fields are filled, false otherwise.
+     */
     private boolean isFoodSupplierDataValid()
     {
         return !foodSupplierTaxNumberEt.getText().toString().isEmpty() &&
@@ -234,6 +291,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 !foodSupplierSecPhoneEt.getText().toString().isEmpty();
     }
 
+    /**
+     * Saves the food supplier data to the database.
+     * Retrieves the data from the input fields, creates a ContentValues object, and inserts the data into the FoodSuppliers table.
+     */
     private void saveFoodSupplierDataToDB()
     {
         String taxNumber = foodSupplierTaxNumberEt.getText().toString();
@@ -253,6 +314,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         db.close();
     }
 
+    /**
+     * Displays a dialog for adding a new meal.
+     * The dialog includes input fields for meal details and buttons to save or cancel.
+     */
     private void showMealDialog()
     {
         dialogView = (LinearLayout) getLayoutInflater().inflate(R.layout.input_meal_dialog, null);
@@ -285,6 +350,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         adb.show();
     }
 
+    /**
+     * Validates the meal data entered in the dialog.
+     *
+     * @return true if all meal data fields are filled, false otherwise.
+     */
     private boolean isMealDataValid()
     {
         return !mealStarterEt.getText().toString().isEmpty() &&
@@ -294,6 +364,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 !mealDrinkEt.getText().toString().isEmpty();
     }
 
+    /**
+     * Saves the meal data to the database.
+     * Retrieves the data from the input fields, creates a ContentValues object, and inserts the data into the Meals table.
+     */
     private void saveMealDataToDB()
     {
         String starter = mealStarterEt.getText().toString();
@@ -315,6 +389,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         db.close();
     }
 
+    /**
+     * Loads employee card numbers from the database into the provided employeeList.
+     *
+     * @param employeeList The ArrayList to populate with employee card numbers.
+     */
     private void loadEmployees(ArrayList<String> employeeList)
     {
         db = hlp.getReadableDatabase();
@@ -334,6 +413,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         db.close();
     }
 
+    /**
+     * Loads meal details and their IDs from the database into the provided lists.
+     *
+     * @param mealsList    The ArrayList to populate with meal details.
+     * @param mealsIdsList The ArrayList to populate with meal IDs.
+     */
     private void loadMeals(ArrayList<String> mealsList, ArrayList<Integer> mealsIdsList) {
         db = hlp.getReadableDatabase();
         Cursor crsr = db.query(Meals.TABLE_MEALS, null,
@@ -360,6 +445,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         db.close();
     }
 
+    /**
+     * Loads food supplier IDs from the database into the provided foodSuppliersList.
+     *
+     * @param foodSuppliersList The ArrayList to populate with food supplier IDs.
+     */
     private void loadFoodSuppliers(ArrayList<String> foodSuppliersList)
     {
         db = hlp.getReadableDatabase();
@@ -379,6 +469,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         db.close();
     }
 
+    /**
+     * Displays a dialog for adding a new order.
+     * The dialog includes spinners for selecting an employee, a meal, and a food supplier,
+     * and buttons to save or cancel.
+     */
     private void showOrderDialog()
     {
         dialogView = (LinearLayout) getLayoutInflater().inflate(R.layout.input_order_dialog, null);
@@ -429,6 +524,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         adb.show();
     }
 
+    /**
+     * Validates the order data entered in the dialog.
+     *
+     * @return true if all order data fields are selected, false otherwise.
+     */
     private boolean isOrderDataValid()
     {
         return orderEmployeeSpinner.getSelectedItemPosition() != 0 &&
@@ -436,6 +536,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 orderFoodSupplierSpinner.getSelectedItemPosition() != 0;
     }
 
+    /**
+     * Saves the order data to the database.
+     * Retrieves the selected employee, meal, and food supplier, creates a ContentValues object,
+     * and inserts the data into the Orders table.
+     */
     private void saveOrderDataToDB()
     {
         Calendar calendar = Calendar.getInstance();
@@ -469,6 +574,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         db.close();
     }
 
+    /**
+     * Handles the addition of data based on the selected option in the main spinner.
+     *
+     * @param view The view that triggered this method (the button).
+     */
     public void addData(View view)
     {
         switch (mainSpinnerChosenOption)

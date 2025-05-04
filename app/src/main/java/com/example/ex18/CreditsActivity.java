@@ -12,7 +12,17 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class CreditsActivity extends AppCompatActivity {
+/**
+ * the credits activity.
+ *
+ *
+ * @author eliya bitton eb3831@bs.amalnet.k12.il
+ * @version 2.0
+ * @since 29/4/2025
+ *
+ */
+public class CreditsActivity extends AppCompatActivity
+{
     Intent gi;
 
     @Override
