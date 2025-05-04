@@ -114,6 +114,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             startActivity(gi);
         }
 
+        else if (itemId == R.id.menuExit)
+        {
+            finish();
+        }
+
         return super.onOptionsItemSelected(menuItem);
     }
 
