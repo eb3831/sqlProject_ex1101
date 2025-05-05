@@ -71,11 +71,6 @@ public class CreditsActivity extends AppCompatActivity
             startActivity(gi);
         }
 
-        else if (itemId == R.id.menuExit)
-        {
-            finish();
-        }
-
         return super.onOptionsItemSelected(menuItem);
     }
 }

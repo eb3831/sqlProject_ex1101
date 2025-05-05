@@ -114,11 +114,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             startActivity(gi);
         }
 
-        else if (itemId == R.id.menuExit)
-        {
-            finish();
-        }
-
         return super.onOptionsItemSelected(menuItem);
     }
 
@@ -500,9 +495,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         loadMeals(mealsList, mealsIdsList);
         loadFoodSuppliers(foodSuppliersList);
 
-        ArrayAdapter<String> employeeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, employeeList);
-        ArrayAdapter<String> mealsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, mealsList);
-        ArrayAdapter<String> suppliersAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, foodSuppliersList);
+        ArrayAdapter<String> employeeAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_dropdown_item, employeeList);
+        ArrayAdapter<String> mealsAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_dropdown_item, mealsList);
+        ArrayAdapter<String> suppliersAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_dropdown_item, foodSuppliersList);
 
         orderEmployeeSpinner.setAdapter(employeeAdapter);
         orderMealSpinner.setAdapter(mealsAdapter);
@@ -551,7 +549,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Calendar calendar = Calendar.getInstance();
 
         // Get components
-        int hour = calendar.get(Calendar.HOUR_OF_DAY); // 0-23
+        int hour = calendar.get(Calendar.HOUR_OF_DAY) + 3; // 0-23
         int minute = calendar.get(Calendar.MINUTE);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         int month = calendar.get(Calendar.MONTH) + 1; // Months are 0-based

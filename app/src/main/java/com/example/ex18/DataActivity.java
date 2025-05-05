@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -42,6 +43,7 @@ public class DataActivity extends AppCompatActivity implements AdapterView.OnIte
     ArrayAdapter<String> adp;
     ListView lv;
     boolean isFirstSelection = true;
+    TextView tv;
 
     ArrayList<String> employeeList, mealsArray, foodSuppliersArray, ordersArray;
     ArrayList<String> optionsArray;
@@ -61,7 +63,8 @@ public class DataActivity extends AppCompatActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_data);
 
         spinner2 = findViewById(R.id.spinner2);
-        lv = findViewById(R.id.lv);
+        lv = findViewById(R.id.lv2);
+        tv = findViewById(R.id.tv);
 
         initAll();
     }
@@ -111,11 +114,6 @@ public class DataActivity extends AppCompatActivity implements AdapterView.OnIte
             startActivity(gi);
         }
 
-        else if (itemId == R.id.menuExit)
-        {
-            finish();
-        }
-
         return super.onOptionsItemSelected(menuItem);
     }
 
@@ -125,6 +123,8 @@ public class DataActivity extends AppCompatActivity implements AdapterView.OnIte
      */
     private void initAll()
     {
+        tv.setText("");
+
         hlp = new HelperDB(this);
         db = hlp.getWritableDatabase();
         db.close();
@@ -169,7 +169,6 @@ public class DataActivity extends AppCompatActivity implements AdapterView.OnIte
         int col6 = crsr.getColumnIndex(Employees.CARD_NUMBER);
 
         crsr.moveToFirst();
-        employeeList.add("EMPLOYEES");
         while (!crsr.isAfterLast())
         {
             employeeList.add(crsr.getString(col1) + ", " + crsr.getString(col2) + ", " + crsr.getString(col3) + ", "
@@ -195,14 +194,13 @@ public class DataActivity extends AppCompatActivity implements AdapterView.OnIte
         int col4 = crsr.getColumnIndex(FoodSuppliers.SECONDARY_PHONE);
 
         crsr.moveToFirst();
-        foodSuppliersArray.add("FOOD SUPPLIERS");
         while (!crsr.isAfterLast())
         {
-            String record = "ID: " + crsr.getString(col1) + "\n" +
+            String str = "ID: " + crsr.getString(col1) + "\n" +
                     "Name: " + crsr.getString(col2) + "\n" +
-                    "Phone 1: " + crsr.getString(col3) + "\n" +
-                    "2 Phone: " + crsr.getString(col4);
-            foodSuppliersArray.add(record);
+                    "Main phone: " + crsr.getString(col3) + "\n" +
+                    "Sec phone: " + crsr.getString(col4);
+            foodSuppliersArray.add(str);
             crsr.moveToNext();
         }
 
@@ -226,7 +224,6 @@ public class DataActivity extends AppCompatActivity implements AdapterView.OnIte
         int col6 = crsr.getColumnIndex(Meals.DRINK);
 
         crsr.moveToFirst();
-        mealsArray.add("MEALS");
         while (!crsr.isAfterLast())
         {
             String str = "Meal ID: " + crsr.getString(col1) + "\n" +
@@ -254,17 +251,14 @@ public class DataActivity extends AppCompatActivity implements AdapterView.OnIte
         int col1 = crsr.getColumnIndex(Orders.ORDER_DATE);
         int col2 = crsr.getColumnIndex(Orders.ORDER_TIME);
         int col3 = crsr.getColumnIndex(Orders.EMPLOYEE_CARD_NUMBER);
-        int col4 = crsr.getColumnIndex(Orders.MEAL_ID);
         int col5 = crsr.getColumnIndex(Orders.SUPPLIER_ID);
 
         crsr.moveToFirst();
-        ordersArray.add("ORDERS");
         while (!crsr.isAfterLast())
         {
             String str = "Date: " + crsr.getString(col1) + "\n" +
                     "Time: " + crsr.getString(col2) + "\n" +
                     "Worker ID: " + crsr.getString(col3) + "\n" +
-                    "Meal ID: " + crsr.getString(col4) + "\n" +
                     "Company: " + crsr.getString(col5);
             ordersArray.add(str);
             crsr.moveToNext();
@@ -295,22 +289,27 @@ public class DataActivity extends AppCompatActivity implements AdapterView.OnIte
         switch (position)
         {
             case 0:
+
                 Toast.makeText(this, "Please choose an option!", Toast.LENGTH_SHORT).show();
                 break;
 
             case 1:
+                tv.setText("EMPLOYEES");
                 adp = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, employeeList);
                 break;
 
             case 2:
+                tv.setText("FOOD SUPPLIERS");
                 adp = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, foodSuppliersArray);
                 break;
 
             case 3:
+                tv.setText("MEALS");
                 adp = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mealsArray);
                 break;
 
             case 4:
+                tv.setText("ORDERS");
                 adp = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ordersArray);
                 break;
         }
