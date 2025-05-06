@@ -114,6 +114,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             startActivity(gi);
         }
 
+        else if (itemId == R.id.menuRemoveEmployee)
+        {
+            gi = new Intent(this, RemoveEmployee.class);
+            startActivity(gi);
+        }
+
         return super.onOptionsItemSelected(menuItem);
     }
 
@@ -185,18 +191,20 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         adb.setView(dialogView);
         adb.setCancelable(false);
 
-        adb.setPositiveButton("Save", (dialog, which) -> {
+        adb.setPositiveButton("Save", (dialog, which) ->
+        {
             if (isEmployeeDataValid())
             {
                 saveEmployeeDataToDB();
-                Toast.makeText(this, "Added new employee!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Added new employee!", Toast.LENGTH_LONG).show();
             }
             else
             {
-                Toast.makeText(this, "Please fill all fields!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please fill all fields!", Toast.LENGTH_LONG).show();
             }
 
         });
+
         adb.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
         adb.show();
     }
@@ -228,6 +236,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         String company = employeeCompanyEt.getText().toString();
         String identity = employeeIdentityEt.getText().toString();
         String phone = employeePhoneNumberEt.getText().toString();
+
+        if(lastName.charAt(0) > 'a' && lastName.charAt(0) < 'z')
+        {
+            lastName = (char)((int)lastName.charAt(0) - 32) + lastName.substring(1);
+        }
 
         ContentValues cv = new ContentValues();
 
@@ -266,11 +279,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             if (isFoodSupplierDataValid())
             {
                 saveFoodSupplierDataToDB();
-                Toast.makeText(this, "Added new food supplier!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Added new food supplier!", Toast.LENGTH_LONG).show();
             }
             else
             {
-                Toast.makeText(this, "Please fill all fields!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please fill all fields!", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -338,11 +351,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             if (isMealDataValid())
             {
                 saveMealDataToDB();
-                Toast.makeText(this, "Added new meal!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Added new meal!", Toast.LENGTH_LONG).show();
             }
             else
             {
-                Toast.makeText(this, "Please fill all fields!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please fill all fields!", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -511,15 +524,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         adb.setView(dialogView);
         adb.setCancelable(false);
 
-        adb.setPositiveButton("Save", (dialog, which) -> {
+        adb.setPositiveButton("Save", (dialog, which) ->
+        {
             if (isOrderDataValid())
             {
                 saveOrderDataToDB();
-                Toast.makeText(this, "Added new order!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Added new order!", Toast.LENGTH_LONG).show();
             }
             else
             {
-                Toast.makeText(this, "Please fill all fields!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please fill all fields!", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -549,7 +563,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Calendar calendar = Calendar.getInstance();
 
         // Get components
-        int hour = calendar.get(Calendar.HOUR_OF_DAY) + 3; // 0-23
+        int hour = calendar.get(Calendar.HOUR_OF_DAY); // 0-23
         int minute = calendar.get(Calendar.MINUTE);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         int month = calendar.get(Calendar.MONTH) + 1; // Months are 0-based
@@ -587,7 +601,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         switch (mainSpinnerChosenOption)
         {
             case 0:
-                Toast.makeText(this, "Please choose an option!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please choose an option!", Toast.LENGTH_LONG).show();
                 break;
             case 1:
                 showEmployeeDialog();

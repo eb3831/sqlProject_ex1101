@@ -28,7 +28,7 @@
         android:layout_weight="1"
         android:backgroundTint="#F06292"
         android:fontFamily="cursive"
-        android:textColor="#F06292"
+        android:textColor="#EC407A"
         android:textSize="24sp"
         android:textStyle="bold" />
 

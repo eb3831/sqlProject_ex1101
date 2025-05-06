@@ -42,7 +42,7 @@ public class DataActivity extends AppCompatActivity implements AdapterView.OnIte
     ArrayAdapter<String> spinnerAdapter;
     ArrayAdapter<String> adp;
     ListView lv;
-    boolean isFirstSelection = true;
+    boolean isFirstSelection, isStrEmpty;
     TextView tv;
 
     ArrayList<String> employeeList, mealsArray, foodSuppliersArray, ordersArray;
@@ -98,19 +98,23 @@ public class DataActivity extends AppCompatActivity implements AdapterView.OnIte
         {
             gi = new Intent(this, CreditsActivity.class);
             startActivity(gi);
-
         }
 
         else if (itemId == R.id.menuMain)
         {
             gi = new Intent(this, MainActivity.class);
             startActivity(gi);
-
         }
 
         else if (itemId == R.id.menuShowSortDate)
         {
             gi = new Intent(this, SortDataActivity.class);
+            startActivity(gi);
+        }
+
+        else if (itemId == R.id.menuRemoveEmployee)
+        {
+            gi = new Intent(this, RemoveEmployee.class);
             startActivity(gi);
         }
 
@@ -124,6 +128,8 @@ public class DataActivity extends AppCompatActivity implements AdapterView.OnIte
     private void initAll()
     {
         tv.setText("");
+        isStrEmpty = true;
+        isFirstSelection = true;
 
         hlp = new HelperDB(this);
         db = hlp.getWritableDatabase();
@@ -158,6 +164,8 @@ public class DataActivity extends AppCompatActivity implements AdapterView.OnIte
      */
     private void getEmployees()
     {
+        String str = "";
+
         db = hlp.getReadableDatabase();
         crsr = db.query(Employees.TABLE_EMPLOYEES, null, null, null, null, null, null);
 
@@ -171,13 +179,21 @@ public class DataActivity extends AppCompatActivity implements AdapterView.OnIte
         crsr.moveToFirst();
         while (!crsr.isAfterLast())
         {
-            employeeList.add(crsr.getString(col1) + ", " + crsr.getString(col2) + ", " + crsr.getString(col3) + ", "
-                    + crsr.getString(col4) + ", " + crsr.getString(col5) + ", " + crsr.getString(col6));
+            str = "ID number: " + crsr.getString(col1) + "\n" +
+                  "Company: " + crsr.getString(col2) + "\n" +
+                  "First name: " + crsr.getString(col3) + "\n" +
+                  "Last name: " + crsr.getString(col4) + "\n" +
+                  "Phone Number: " + crsr.getString(col5) + "\n" +
+                  "Card number: " + crsr.getString(col6);
+
+            employeeList.add(str);
             crsr.moveToNext();
         }
 
         crsr.close();
         db.close();
+
+        isStrEmpty = str.isEmpty();
     }
 
     /**
@@ -185,6 +201,8 @@ public class DataActivity extends AppCompatActivity implements AdapterView.OnIte
      */
     private void getFoodSuppliers()
     {
+        String str = "";
+
         db = hlp.getReadableDatabase();
         crsr = db.query(FoodSuppliers.TABLE_FOOD_SUPPLIERS, null, null, null, null, null, null);
 
@@ -196,16 +214,19 @@ public class DataActivity extends AppCompatActivity implements AdapterView.OnIte
         crsr.moveToFirst();
         while (!crsr.isAfterLast())
         {
-            String str = "ID: " + crsr.getString(col1) + "\n" +
-                    "Name: " + crsr.getString(col2) + "\n" +
-                    "Main phone: " + crsr.getString(col3) + "\n" +
-                    "Sec phone: " + crsr.getString(col4);
+            str = "ID: " + crsr.getString(col1) + "\n" +
+                  "Name: " + crsr.getString(col2) + "\n" +
+                  "Main phone: " + crsr.getString(col3) + "\n" +
+                  "Sec phone: " + crsr.getString(col4);
+
             foodSuppliersArray.add(str);
             crsr.moveToNext();
         }
 
         crsr.close();
         db.close();
+
+        isStrEmpty = str.isEmpty();
     }
 
     /**
@@ -213,6 +234,8 @@ public class DataActivity extends AppCompatActivity implements AdapterView.OnIte
      */
     private void getMeals()
     {
+        String str = "";
+
         db = hlp.getReadableDatabase();
         crsr = db.query(Meals.TABLE_MEALS, null, null, null, null, null, null);
 
@@ -226,18 +249,21 @@ public class DataActivity extends AppCompatActivity implements AdapterView.OnIte
         crsr.moveToFirst();
         while (!crsr.isAfterLast())
         {
-            String str = "Meal ID: " + crsr.getString(col1) + "\n" +
-                    "Starter: " + crsr.getString(col2) + "\n" +
-                    "Main Course: " + crsr.getString(col3) + "\n" +
-                    "Side: " + crsr.getString(col4) + "\n" +
-                    "Dessert: " + crsr.getString(col5) + "\n" +
-                    "Drink: " + crsr.getString(col6);
+            str = "Meal ID: " + crsr.getString(col1) + "\n" +
+                  "Starter: " + crsr.getString(col2) + "\n" +
+                  "Main Course: " + crsr.getString(col3) + "\n" +
+                  "Side: " + crsr.getString(col4) + "\n" +
+                  "Dessert: " + crsr.getString(col5) + "\n" +
+                  "Drink: " + crsr.getString(col6);
+
             mealsArray.add(str);
             crsr.moveToNext();
         }
 
         crsr.close();
         db.close();
+
+        isStrEmpty = str.isEmpty();
     }
 
     /**
@@ -245,6 +271,8 @@ public class DataActivity extends AppCompatActivity implements AdapterView.OnIte
      */
     private void getOrders()
     {
+        String str = "";
+
         db = hlp.getReadableDatabase();
         crsr = db.query(Orders.TABLE_ORDERS, null, null, null, null, null, null);
 
@@ -256,16 +284,19 @@ public class DataActivity extends AppCompatActivity implements AdapterView.OnIte
         crsr.moveToFirst();
         while (!crsr.isAfterLast())
         {
-            String str = "Date: " + crsr.getString(col1) + "\n" +
-                    "Time: " + crsr.getString(col2) + "\n" +
-                    "Worker ID: " + crsr.getString(col3) + "\n" +
-                    "Company: " + crsr.getString(col5);
+            str = "Date: " + crsr.getString(col1) + "\n" +
+                  "Time: " + crsr.getString(col2) + "\n" +
+                  "Worker ID: " + crsr.getString(col3) + "\n" +
+                  "Company: " + crsr.getString(col5);
+
             ordersArray.add(str);
             crsr.moveToNext();
         }
 
         crsr.close();
         db.close();
+
+        isStrEmpty = str.isEmpty();
     }
 
     /**
@@ -283,38 +314,57 @@ public class DataActivity extends AppCompatActivity implements AdapterView.OnIte
         if (isFirstSelection)
         {
             isFirstSelection = false;
-            return;
         }
 
-        switch (position)
+        else
         {
-            case 0:
+            switch (position)
+            {
+                case 0:
+                    Toast.makeText(this, "Please choose an option!", Toast.LENGTH_SHORT).show();
 
-                Toast.makeText(this, "Please choose an option!", Toast.LENGTH_SHORT).show();
-                break;
+                    break;
 
-            case 1:
-                tv.setText("EMPLOYEES");
-                adp = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, employeeList);
-                break;
+                case 1:
+                    tv.setText("EMPLOYEES");
+                    adp = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, employeeList);
 
-            case 2:
-                tv.setText("FOOD SUPPLIERS");
-                adp = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, foodSuppliersArray);
-                break;
+                    if (isStrEmpty)
+                        Toast.makeText(this, "couldn't find any  employees!", Toast.LENGTH_LONG).show();
 
-            case 3:
-                tv.setText("MEALS");
-                adp = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mealsArray);
-                break;
+                    break;
 
-            case 4:
-                tv.setText("ORDERS");
-                adp = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ordersArray);
-                break;
+                case 2:
+                    tv.setText("FOOD SUPPLIERS");
+                    adp = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, foodSuppliersArray);
+
+                    if (isStrEmpty)
+                        Toast.makeText(this, "couldn't find any food suppliers!", Toast.LENGTH_LONG).show();
+
+                    break;
+
+                case 3:
+                    tv.setText("MEALS");
+                    adp = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mealsArray);
+
+                    if (isStrEmpty)
+                        Toast.makeText(this, "couldn't find any meals!", Toast.LENGTH_LONG).show();
+
+                    break;
+
+                case 4:
+                    tv.setText("ORDERS");
+                    adp = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ordersArray);
+
+                    if (isStrEmpty)
+                        Toast.makeText(this, "couldn't find any orders!", Toast.LENGTH_LONG).show();
+
+                    break;
+            }
+
+            lv.setAdapter(adp);
         }
 
-        lv.setAdapter(adp);
     }
 
     /**

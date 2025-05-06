@@ -17,8 +17,8 @@
         android:orderInCategory="200"/>
 
     <item
-        android:id="@+id/menuLeave"
-        android:title="Leave"
+        android:id="@+id/menuRemoveEmployee"
+        android:title="Remove Employee"
         android:orderInCategory="400"/>
 
     <item

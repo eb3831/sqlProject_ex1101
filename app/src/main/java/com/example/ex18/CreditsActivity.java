@@ -70,6 +70,11 @@ public class CreditsActivity extends AppCompatActivity
             gi = new Intent(this, SortDataActivity.class);
             startActivity(gi);
         }
+        else if ( itemId == R.id.menuRemoveEmployee )
+        {
+            gi = new Intent(this, RemoveEmployee.class);
+            startActivity(gi);
+        }
 
         return super.onOptionsItemSelected(menuItem);
     }

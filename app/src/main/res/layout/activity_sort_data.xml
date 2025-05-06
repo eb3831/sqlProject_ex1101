@@ -28,7 +28,7 @@
         android:layout_weight="1"
         android:backgroundTint="#F06292"
         android:fontFamily="cursive"
-        android:textColor="#F06292"
+        android:textColor="#EC407A"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -68,10 +68,10 @@
         android:layout_height="0dp"
         android:layout_gravity="center"
         android:layout_weight="1"
-        android:backgroundTint="#F06292"
+        android:backgroundTint="#F48FB1"
         android:onClick="filterDataEnter"
-        android:text="GO"
-        android:textColor="#D81B60"
+        android:text="SORT"
+        android:textColor="#EC407A"
         android:textSize="20sp"
         android:textStyle="bold" />
 
